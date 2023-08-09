@@ -39,9 +39,26 @@ def import_from_github(https:str, file_name: str = "chosen from end of link", di
         return module
     return True
 
-def import_from_github_using_path(from_path:str, )
+def import_from_github_using_path(from_path:str, file_name: str = "chosen from end of link", directory=path[0], load_lib = False):
+    """This is an extension on import_from_github, which imports files using a github raw link
+    
+    args: 
+        from_path: str = The path which the file is imported from, 
+            examplewise: 
+                1. repo/dir.../filename.type
+                2. PyLibraries/os_related/importLib.py
+        file_name: The name chosen for the file imported.
+        directory: Chosen directory to place the file in
+        load_lib: if the library should be returned
 
+    Returns:
+        bool: True or False, Success or Fail
+        if load_lib: Library"""
+    https = fr"https://raw.githubusercontent.com/GGisMee/{from_path}"
+    return import_from_github(https=https,file_name=file_name, directory= directory, load_lib=load_lib)
 
+import_from_github_using_path(r"PyLibraries/misc/TimeTester.py")
+print("end")
 def import_from_path(file_name, directory):
     """imports a file from path
     
