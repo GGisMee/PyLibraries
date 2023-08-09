@@ -29,6 +29,10 @@ def import_from_github(https:str, file_name: str = "chosen from end of link", di
         except requests.exceptions.MissingSchema:
             print("URL not found")
             return False
+        if (str(request.content) == "b'404: Not Found'"):
+            print(str(request.content)[2:-1])
+            return False
+
         with open(file_path, "wb") as f:
             f.write(request.content)
     file_name = file_name.split(".")[0]
@@ -57,7 +61,7 @@ def import_from_github_using_path(from_path:str, file_name: str = "chosen from e
     https = fr"https://raw.githubusercontent.com/GGisMee/{from_path}"
     return import_from_github(https=https,file_name=file_name, directory= directory, load_lib=load_lib)
 
-import_from_github_using_path(r"PyLibraries/misc/TimeTester.py")
+import_from_github_using_path(r"PyLibraries/miscs/TimeTester.py")
 print("end")
 def import_from_path(file_name, directory):
     """imports a file from path
