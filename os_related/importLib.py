@@ -62,7 +62,6 @@ def import_from_github_using_path(from_path:str, file_name: str = "chosen from e
     return import_from_github(https=https,file_name=file_name, directory= directory, load_lib=load_lib)
 
 import_from_github_using_path(r"PyLibraries/miscs/TimeTester.py")
-print("end")
 def import_from_path(file_name, directory):
     """imports a file from path
     
