@@ -16,7 +16,7 @@ def import_from_github(https:str, file_name: str = "chosen from end of link", di
         bool: True or False, Success or Fail
         if load_lib: Library
         """
-    file_name.replace("\\", "/")
+    https.replace("\\", "/")
     file_name = "/".join(map(str,(https.split("/")[-1:]))) if file_name == "chosen from end of link" else file_name
     
     file_path = f"{directory}/{file_name}"
