@@ -2,6 +2,8 @@ import requests
 from pathlib import Path
 import importlib
 from sys import path
+from pkgutil import iter_modules
+import subprocess
 
 def import_from_github(https:str, file_name: str = "chosen from end of link", directory=path[0], load_lib = False):
     """This function is used to import a file to a chosen directory using a github raw link
@@ -64,7 +66,6 @@ def import_from_github_using_path(from_path:str, file_name: str = "chosen from e
     https = fr"https://raw.githubusercontent.com/GGisMee/{from_path}"
     return import_from_github(https=https,file_name=file_name, directory= directory, load_lib=load_lib)
 
-
 def import_from_path(file_name, directory):
     """imports a file from path
     
@@ -87,3 +88,37 @@ def import_from_path(file_name, directory):
 
     return module
         
+def check_modules(modules:list[str], import_pip:bool=False, show:bool=False):
+    """Checks if any of provided modules are not imported
+    
+    args:
+        modules: list = modules to check
+        import_pip: bool = if unimported modules should be downloaded using pip
+        show: bool = shows unimported modules
+    return:
+        if len(list_of_unimported_modules) < 0:
+            0
+        else:
+            list_of_unimported_modules"""
+    list_of_unimported = []
+    for module in modules:
+        imported = False
+        for module_info in iter_modules():
+            if module == module_info.name:
+                imported = True
+                break
+        if not imported:
+            list_of_unimported.append(module)
+    if list_of_unimported == []:
+        return 0
+    if show:
+        print("Following modules were not found:")
+        print(str(list_of_unimported)[1:-1].replace("'", ''))
+    if not import_pip:
+        return list_of_unimported
+    for module in list_of_unimported:
+        try:
+            subprocess.check_call(['pip3', 'install', module])
+        except subprocess.CalledProcessError:
+            print(module+' not found in pip')
+    return list_of_unimported

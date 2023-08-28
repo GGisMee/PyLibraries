@@ -8,4 +8,3 @@ def list_files(startpath):
         subindent = '    ' * (level + 1)
         for f in files:
             print('{}{}'.format(subindent, f))
-list_files('/Users/gustavgamstedt/Desktop/github to hemma/PyTorch/04/data/pizza_steak_sushi')
